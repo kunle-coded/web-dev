@@ -1,0 +1,213 @@
+/* External CSS File */
+
+/* Structure */
+/*
+selector {
+property: "";
+}
+ */
+
+/* Selector types */
+/* Simple selectors */
+
+/* 1. Element selectors */
+
+body {
+  /* margin: 0;
+  padding: 0;
+  font-size: 16px;
+  line-height: 1; */
+  background-color: gainsboro;
+}
+
+/* div {
+   background-color: brown; 
+} */
+
+/* 2. Class selectors */
+
+/* .header {
+  background-color: white;
+  height: 65px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.top-header {
+  margin: 16px 20px;
+  border-radius: 65px;
+}
+
+/* 3. Id selectors */
+/* #menu {
+  display: block;
+  padding: 12px;
+  background-color: aqua;
+} */
+
+/* ------------------ */
+
+.parent {
+  display: flex;
+  flex-direction: column;
+
+  border: 1px solid rebeccapurple;
+}
+
+.div {
+  width: 100px;
+  height: 100px;
+}
+
+.first {
+  background-color: #0f766e;
+  /* display: inline; */
+}
+.second {
+  background-color: brown;
+  /* display: block; */
+}
+.third {
+  background-color: khaki;
+  /* display: inline; */
+}
+.fourth {
+  background-color: slategray;
+}
+.fifth {
+  background-color: magenta;
+}
+
+.header {
+  background-color: white;
+  /* height: 65px; */
+  display: flex;
+  justify-content: space-between;
+  border-radius: 100px;
+  margin: 16px 20px;
+  padding: 16px 24px;
+}
+
+.top-header {
+  margin: 16px 20px;
+  padding: 16px 24px;
+}
+
+.__logo {
+  text-align: left;
+  font-size: 24px;
+  font-weight: bold;
+  color: #0f766e;
+  margin-block: 0;
+}
+
+.__nav {
+  margin-left: 24px;
+}
+
+.nav__list {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin: 0;
+  list-style: none;
+  margin-block: 0;
+  padding-inline: 0;
+}
+
+.nav__item {
+  font-weight: 500;
+  color: black;
+  cursor: pointer;
+  text-underline-offset: 4px;
+}
+
+.nav__item--active {
+  text-decoration: underline;
+}
+.nav__item--active:hover {
+  text-decoration: none;
+}
+
+.nav__item:hover {
+  text-decoration: underline;
+}
+
+/* Selector Specificity */
+
+/* Element: Selector Specificity: (0, 0, 1) */
+section {
+  margin: 30px 0px;
+  background-color: #0f766e;
+}
+
+/* id: Selector Specificity: (1, 0, 0) */
+#intro {
+  /* margin: 20px 0px; */
+  /* background-color: blueviolet; */
+}
+
+/* Class: Selector Specificity: (0, 1, 0) */
+.lorem {
+  /* margin: 10px 0px; */
+  background-color: cornflowerblue;
+}
+
+/* Position */
+
+.position-container {
+  width: 600px;
+  height: 900px;
+  background-color: #fff;
+  position: relative;
+}
+
+.clearfix::after {
+  content: "";
+  display: block;
+  clear: both;
+}
+
+.box {
+  width: 100px;
+  height: 100px;
+  background-color: lightblue;
+  margin: 5px;
+}
+
+.float_left {
+  float: left;
+}
+.float_right {
+  float: right;
+}
+
+.clear {
+  clear: left;
+}
+
+.position_child_1,
+.position_child_2,
+.position_child_3 {
+  width: 200px;
+  height: 200px;
+}
+
+.position_child_1 {
+  background-color: #0f766e;
+  position: absolute;
+  top: 100px;
+  right: 0;
+  /* left: 100px;
+  top: 100px; */
+}
+.position_child_2 {
+  background-color: #747474;
+}
+.position_child_3 {
+  background-color: #2468fe;
+}
+
+.position_child_4 {
+  /* height: 1000px; */
+}
