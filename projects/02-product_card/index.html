@@ -23,6 +23,7 @@
               height="30px"
               viewBox="0 0 24 24"
               fill="none"
+              class="like--button"
             >
               <path
                 fill-rule="evenodd"
@@ -47,32 +48,58 @@
             <div class="selections">
               <div class="select_container">
                 <label for="color" class="color_label"></label>
-                <select name="color" id="">
-                  <option value="">Green</option>
-                  <option value="">White</option>
-                  <option value="">Black</option>
-                  <option value="">Gold</option>
+                <select name="color" id="color">
+                  <option value="#578b57">Green</option>
+                  <option value="#ffffff">White</option>
+                  <option value="#000000">Black</option>
+                  <option value="#daa520">Gold</option>
+                  <option value="red">Red</option>
+                  <option value="blue">Blue</option>
                 </select>
               </div>
               <div class="select_container">
                 <label for="quantity">Quantity</label>
-                <select name="quantity" id="">
-                  <option value="">1</option>
-                  <option value="">2</option>
-                  <option value="">3</option>
-                  <option value="">4</option>
+                <select name="quantity" id="qty">
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                  <option value="7">7</option>
+                  <option value="8">8</option>
+                  <option value="9">9</option>
+                  <option value="10">10</option>
                 </select>
               </div>
             </div>
           </div>
           <div class="btn__container">
             <div class="btn_inner">
-              <p>$549</p>
-              <button class="btn"><span>+</span> Add to cart</button>
+              <p id="price">$549</p>
+              <button class="btn">
+                <span class="btn--icon">+</span> Add to cart
+              </button>
             </div>
           </div>
         </div>
       </div>
+      <div class="display hidden">
+        <div class="display-wrapper">
+          <div class="cart--top">
+            <h3>Cart</h3>
+            <p>Items in your cart</p>
+          </div>
+          <div class="cart--bottom">
+            <div class="cart--item">
+              <img src="./images/product.png" alt="" />
+              <p>Item name</p>
+            </div>
+            <div id="cart--qty">0</div>
+          </div>
+        </div>
+      </div>
     </div>
+    <script src="script.js"></script>
   </body>
 </html>

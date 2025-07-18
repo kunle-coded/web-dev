@@ -68,12 +68,16 @@ select:focus {
   right: 10px;
 }
 
-.icon_container svg {
+.icon_container .like--button {
   cursor: pointer;
   transition: transform 150ms ease;
 }
-.icon_container svg:hover {
+.icon_container .like--button:hover {
   transform: scale(1.2);
+}
+
+.liked {
+  fill: #ff0000;
 }
 
 .content-container {
@@ -177,5 +181,61 @@ select:focus {
   height: 20px;
   border-radius: 100%;
   background-color: #578b57;
+  border: 1px solid #343434;
   opacity: 0.6;
+}
+
+.hidden {
+  display: none;
+}
+
+.display {
+  min-width: 300px;
+  min-height: 490px;
+  margin-left: 2rem;
+}
+
+.display-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  background-color: #ffffff;
+  padding: 1rem;
+}
+
+.cart--top {
+  width: 100%;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid #a09f9f;
+}
+
+.cart--top h3 {
+  font-size: 24px;
+  font-weight: 600;
+  color: #4c4c4c;
+}
+.cart--top p {
+  font-size: 14px;
+  color: #4c4c4c;
+}
+
+.cart--bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding-top: 1rem;
+}
+
+.cart--item {
+  display: flex;
+  align-items: center;
+}
+
+.cart--item img {
+  width: 50px;
+  height: 50px;
+  margin-right: 0.5rem;
+  border-radius: 50%;
+  border: 2px solid rgb(87, 139, 87, 0.6);
 }
