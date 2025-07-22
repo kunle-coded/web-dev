@@ -108,7 +108,7 @@ function yearsUntilRetirement(birthYear, firstName) {
 }
 
 // console.log(yearsUntilRetirement(1999, "Sarah"));
-*/
+
 
 // Arrays
 // Creating arrays
@@ -380,3 +380,84 @@ while (counter <= 100) {
   }
   counter++;
 }
+
+// How JavaScript Works Behind The Scene
+
+class User {
+  constructor(name, email) {
+    this.name = name;
+    this.email = email;
+    this.followers = 0;
+  }
+
+  follow() {
+    this.followers = this.followers + 1;
+  }
+
+  updateUser(phone, address) {
+    this.phone = phone;
+    this.address = address;
+  }
+}
+
+class PremiumUser extends User {
+  constructor(name, email) {
+    super(name, email);
+    this.verified = true;
+  }
+}
+
+const aishat = new User("Aishat", "aishat@email.com");
+aishat.follow();
+aishat.follow();
+aishat.updateUser(23465678686, "Lagos");
+const john = new PremiumUser("John", "john@email.com");
+console.log(aishat);
+console.log(john);
+
+
+let my_number = 34;
+console.log(my_number);
+let my_text = "This is my number";
+console.log(my_number);
+*/
+
+function soome() {
+  const something = "djdf";
+  console.log(something);
+}
+
+// soome();
+
+// Scope and Scope of variables
+// Global scope
+const globalScopeVariable = "John Doe";
+
+function printSomething() {
+  console.log(`My name is ${globalScopeVariable}`);
+}
+
+// printSomething();
+function calcAge(birthYear) {
+  const now = 2027;
+  const age = now - birthYear;
+  return age;
+}
+
+console.log(now);
+
+if (true) {
+  let some = 5;
+  const job = "Artist";
+  var thisShouldWork = "Yes it should";
+}
+
+// console.log(now);
+// console.log(some);
+console.log(thisShouldWork);
+
+for (let index = 0; index < 2; index++) {
+  var element = index;
+}
+
+console.log(element);
