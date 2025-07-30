@@ -420,7 +420,7 @@ let my_number = 34;
 console.log(my_number);
 let my_text = "This is my number";
 console.log(my_number);
-*/
+
 
 function soome() {
   const something = "djdf";
@@ -433,6 +433,24 @@ function soome() {
 // Global scope
 const globalScopeVariable = "John Doe";
 
+function firstFunc() {
+  const age = 24;
+  console.log(decade);
+
+  if (age >= 18) {
+    const decade = 3;
+    var milenial = true;
+    console.log(
+      `${globalScopeVariable}, you are an adult. You are ${age} years old`
+    );
+  }
+
+  console.log(decade);
+  console.log(milenial);
+}
+
+firstFunc();
+
 function printSomething() {
   console.log(`My name is ${globalScopeVariable}`);
 }
@@ -441,10 +459,12 @@ function printSomething() {
 function calcAge(birthYear) {
   const now = 2027;
   const age = now - birthYear;
+  var itWontWork = "this should not work";
   return age;
 }
 
-console.log(now);
+// console.log(itWontWork);
+// console.log(now);
 
 if (true) {
   let some = 5;
@@ -461,3 +481,182 @@ for (let index = 0; index < 2; index++) {
 }
 
 console.log(element);
+
+const firstClassFunc = function () {
+  console.log("This is a first class function!");
+};
+
+function onClick() {
+  console.log("you clicked me");
+}
+
+
+const varrr = "some variables"; // Global scope
+
+function firstFun() {
+  const myName = "John";
+  console.log(myAge);
+
+  if (typeof varrr === "string") {
+    let newVarr = "another string";
+    var myAge = 23;
+    console.log(myName);
+    console.log("say something");
+
+    function secondFunc() {
+      const job = "teacher";
+      console.log(job);
+      console.log(myAge);
+      console.log(newVarr);
+      console.log(myName);
+      console.log(varrr);
+    }
+
+    secondFunc();
+  }
+
+  console.log(newVarr);
+  console.log(myAge);
+}
+
+// Variable environment: Hoisting
+
+greet("John Doe");
+
+function greet(name) {
+  console.log(`Hello, ${name}`);
+}
+
+console.log(myName);
+var myName = "Femi";
+
+console.log(myAge);
+let myAge = 23;
+
+console.log(myJob);
+const myJob = "Teacher";
+
+add(5, 9);
+var add = function (a, b) {
+  const answer = a + b;
+  console.log(answer);
+};
+
+
+var myVar = "hello";
+let myLet = "hi";
+const myConst = "hey";
+
+// console.log(window.myVar);
+// console.log(window.myLet);
+// console.log(window.myConst);
+
+// The this keyword
+const person = {
+  firstName: "John",
+  lastName: "Doe",
+  greet: function () {
+    console.log(`Hello, ${this.firstName} ${this.lastName}`);
+  },
+};
+// person.greet();
+
+// this keyword in practice
+const calcAge = function (birthYear) {
+  console.log(2027 - birthYear);
+  console.log(this);
+};
+
+// calcAge(1999);
+
+const calcAgeArrow = (birthYear) => {
+  console.log(2027 - birthYear);
+  console.log(this);
+};
+
+// calcAgeArrow(2001);
+
+const femi = {
+  name: "Femi",
+  year: 1991,
+  calcAge: function () {
+    console.log(this);
+    console.log(2027 - this.year);
+  },
+  print: function () {
+    console.log(this.name);
+  },
+};
+
+// femi.calcAge();
+// femi.print();
+
+const yemi = {
+  year: 2017,
+};
+
+yemi.calcAge = femi.calcAge;
+// yemi.calcAge();
+
+const btn = document.querySelector("button");
+
+btn.addEventListener("click", function () {
+  console.log(this.textContent);
+});
+
+// Regular vs Arrow functions
+const john = {
+  firstName: "John",
+  year: 1997,
+  calcAge: function () {
+    console.log(this);
+    console.log(2025 - this.year);
+
+    const sayHello = () => console.log(`Hello ${this.firstName}`);
+    sayHello();
+
+    const self = this;
+
+    const isMillenial = function () {
+      console.log(self.year >= 1981 && self.year <= 1996);
+    };
+    isMillenial();
+  },
+  greet: () => console.log(`Hey ${this.firstName}`),
+};
+
+john.calcAge();
+
+// Arguments keyword
+const addExpr = function (a, b) {
+  console.log(arguments);
+  let result = 0;
+  for (let i = 0; i < arguments.length; i++) {
+    const number = arguments[i];
+    result += number;
+  }
+  return result;
+};
+
+console.log(addExpr(2, 5, 8, 12, 34, 5, 18, 90));
+
+const addArrow = (a, b) => {
+  console.log(arguments);
+  return a + b;
+};
+
+// console.log(addArrow(2, 5, 8));
+*/
+
+const hello = "Hello";
+// hello = "Hi";
+
+const me = {
+  firstName: "John",
+  lastName: "Doe",
+};
+
+me.firstName = "Femi";
+console.log(me);
+
+//
