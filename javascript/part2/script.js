@@ -646,7 +646,7 @@ const addArrow = (a, b) => {
 };
 
 // console.log(addArrow(2, 5, 8));
-*/
+
 
 const hello = "Hello";
 // hello = "Hi";
@@ -659,4 +659,217 @@ const me = {
 me.firstName = "Femi";
 console.log(me);
 
-//
+
+
+
+const form = {
+  username: "",
+  email: "",
+};
+
+const btn = document.querySelector("button");
+const input = document.querySelector("input");
+const user = {};
+
+btn.addEventListener("click", function () {
+  registerUser("John Doe", "john@email.com", "08045384845");
+  console.log(user);
+});
+
+function registerUser(name, email) {
+  user.name = name;
+  user.email = email;
+  const args = arguments;
+
+  if (args.length > 2) {
+    console.log("arguments will loop");
+    for (let i = 0; i < args.length; i++) {
+      if (i > 1) {
+        const prop = input.name;
+        const value = args[i];
+        user[prop] = value;
+      }
+    }
+  }
+}
+
+let age = 30;
+let oldAge = age;
+age = 31;
+
+console.log(age);
+console.log(oldAge);
+
+const me = {
+  name: "John",
+  age: 30,
+};
+
+const persons = ["John", "Doe", "Femi"];
+
+const friend = me;
+friend.age = 27;
+
+console.log("friend object", friend);
+console.log("me object", me);
+
+
+// Data structures
+
+// 1. Destructing Arrays – const [variable names] = array
+
+const arr = [3, 2, 5];
+// const a=arr[0]
+// const b=arr[1]
+// const c=arr[2]
+
+const [x, y, z] = arr;
+// console.log(x);
+
+const restaurant = {
+  name: "Classico Italiano",
+  location: "Lekki Phase 1",
+  categories: ["Italian", "Pizzeria", "Vegetarian", "Organic"],
+  starterMenu: ["Focaccia", "Canapes", "Garlic", "Bread", "Caprese Salad"],
+  mainMenu: ["Pizza", "Pasta", "Risotto"],
+  order: function (starterIndex, mainIndex) {
+    return [this.starterMenu[starterIndex], this.mainMenu[mainIndex]];
+    // const orderItem = [
+    //   this.starterMenu[starterIndex],
+    //   this.mainMenu[mainIndex],
+    // ];
+
+    // return orderItem
+  },
+};
+
+// const [first, second] = restaurant.categories;
+const [first, , third] = restaurant.mainMenu;
+// console.log("first category: ", first);
+// console.log("third category: ", third);
+
+// Switch elements
+let [main, secondary] = restaurant.categories;
+// console.log("before switch", main, secondary);
+
+[main, secondary] = [secondary, main]; // main = secondary; secondary = main;
+// console.log("after switch", main, secondary);
+
+const [starter, mainCourse] = restaurant.order(2, 0);
+console.log(starter, mainCourse);
+
+function add(a, b) {
+  return a + b;
+}
+
+const result = add(8, 9);
+console.log("Result: ", result);
+
+// Destructing nested arrays
+const nestedArr = [2, 4, [5, 6]];
+const [i, , [j, k]] = nestedArr;
+console.log(j, k);
+
+// Default values
+const [p = 1, q = 1, r = 1] = [8, 9];
+console.log(p, q, r);
+
+function add2(a = 1, b = 1) {
+  return a + b;
+}
+
+console.log(add2());
+*/
+
+// Destructuring objects
+
+const restaurant = {
+  name: "Classico Italiano",
+  location: "Lekki Phase 1",
+  categories: ["Italian", "Pizzeria", "Vegetarian", "Organic"],
+  starterMenu: ["Focaccia", "Canapes", "Garlic", "Bread", "Caprese Salad"],
+  mainMenu: ["Pizza", "Pasta", "Risotto"],
+  order: function (starterIndex, mainIndex) {
+    return [this.starterMenu[starterIndex], this.mainMenu[mainIndex]];
+    // const orderItem = [
+    //   this.starterMenu[starterIndex],
+    //   this.mainMenu[mainIndex],
+    // ];
+
+    // return orderItem
+  },
+  orderDelivery: function (order) {
+    const { starterIndex, mainIndex, time, address } = order;
+    return console.log(
+      `You have ordered for ${this.starterMenu[starterIndex]} starter, ${this.mainMenu[mainIndex]} main course and will be delivered at ${time} to this address, ${address}`
+    );
+  },
+};
+const { id } = { id: 0, name: "john", email: "john@email.com" };
+// const {} = restaurant;
+// console.log(id);
+
+const iphoneName = "iPhone 16";
+
+const iPhones = [
+  {
+    id: 0,
+    model: "iPhone 16",
+    color: "Black",
+    prodYear: "2025",
+    desc: "New apple iPhone 16",
+    img: "https://amazon.aws.com/sdkdkfkfkk.png",
+  },
+  {
+    id: 1,
+    model: "iPhone 16 Pro Max",
+    color: "Rose Gold",
+    prodYear: "2025",
+    desc: "New apple iPhone 16 Pro Max",
+    img: "https://amazon.aws.com/sdkdkfkfkk.png",
+  },
+];
+
+// Renaming destructured varables
+const categories = ["Jos"];
+const { categories: cat, tel = "090363" } = restaurant;
+// console.log(cat, tel);
+
+// Mutating variables while destructuring
+let a = 111;
+let b = 999;
+
+const obj = {
+  a: 23,
+  b: 7,
+  c: 14,
+};
+// console.log(a, b);
+
+({ a, b } = obj);
+
+// console.log(a, b);
+
+// Destructuring objects inside objects
+const openHrs = {
+  mon: { open: 8, close: 5 },
+  tue: { open: 8, close: 5 },
+  wed: { open: 8, close: 5 },
+};
+
+const {
+  mon: { open, close },
+} = openHrs;
+
+// console.log(`Open: ${open} – Close: ${close}`);
+
+// Functions with many parameters
+const order = {
+  starterIndex: 1,
+  mainIndex: 0,
+  time: "10pm",
+  address: "Lekki Phase 1",
+};
+restaurant.orderDelivery(order);
+
+console.log(order.time);
