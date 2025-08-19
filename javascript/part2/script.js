@@ -779,7 +779,6 @@ function add2(a = 1, b = 1) {
 }
 
 console.log(add2());
-*/
 
 // Destructuring objects
 
@@ -805,6 +804,7 @@ const restaurant = {
     );
   },
 };
+
 const { id } = { id: 0, name: "john", email: "john@email.com" };
 // const {} = restaurant;
 // console.log(id);
@@ -857,6 +857,9 @@ const openHrs = {
   wed: { open: 8, close: 5 },
 };
 
+// const {mon}=openHrs
+// const {open, close}=mon
+
 const {
   mon: { open, close },
 } = openHrs;
@@ -870,6 +873,430 @@ const order = {
   time: "10pm",
   address: "Lekki Phase 1",
 };
+
 restaurant.orderDelivery(order);
 
 console.log(order.time);
+
+
+// Spread operators
+const arr = [7, 8, 9, 10, 11, 12, 13];
+const badNewArr = [1, 2, arr[0], arr[1], arr[2], arr[3]];
+
+// console.log(badNewArr);
+
+const bestNewArr = [1, 2, ...arr];
+// console.log(bestNewArr);
+// console.log("directly unpacked ", "another arg", ...arr);
+// console.log(...bestNewArr);
+
+const restaurant = {
+  name: "Classico Italiano",
+  location: "Lekki Phase 1",
+  categories: ["Italian", "Pizzeria", "Vegetarian", "Organic"],
+  starterMenu: ["Focaccia", "Canapes", "Garlic", "Bread", "Caprese Salad"],
+  mainMenu: ["Pizza", "Pasta", "Risotto"],
+  order: function (starterIndex, mainIndex) {
+    return [this.starterMenu[starterIndex], this.mainMenu[mainIndex]];
+    // const orderItem = [
+    //   this.starterMenu[starterIndex],
+    //   this.mainMenu[mainIndex],
+    // ];
+
+    // return orderItem
+  },
+  orderDelivery: function (order) {
+    const { starterIndex, mainIndex, time, address } = order;
+    return console.log(
+      `You have ordered for ${this.starterMenu[starterIndex]} starter, ${this.mainMenu[mainIndex]} main course and will be delivered at ${time} to this address, ${address}`
+    );
+  },
+  orderPasta: function (ing1, ing2, ing3) {
+    console.log(
+      `Here is your delicious pasta with ${ing1}, ${ing2} and ${ing3}`
+    );
+  },
+};
+
+// spread operator - create shallow copy of an array
+const mainMenu = [...restaurant.mainMenu];
+// console.log(mainMenu);
+
+// spread operator - merge multiple arrays
+const menu = [...restaurant.starterMenu, ...restaurant.mainMenu];
+// console.log(menu);
+
+// Iterables - arrays, strings, maps, sets
+
+const str = "John";
+const letters = [...str, " ", "s."];
+// console.log(...letters);
+
+// const ingredients = [
+//   prompt("Let's make pasta! Ingredient 1"),
+//   prompt("Ingredient 2"),
+//   prompt("Ingredient 3"),
+// ];
+
+function spreadArgs(ing1, ing2, ing3) {
+  console.log(`Here is your delicious pasta with ${ing1}, ${ing2} and ${ing3}`);
+}
+
+// restaurant.orderPasta(...ingredients);
+const ings = ["Soya", "cheese", "chicken"];
+// spreadArgs(...ings);
+
+// Spread operator - objects
+const newRestaurant = {
+  foundedIn: 1998,
+  ...restaurant,
+  founder: "Rossi",
+};
+
+const restaurantBranch = {
+  branchLocation: "Ikeja",
+  founded: 2024,
+};
+const restaurantCopy = { ...restaurant };
+
+const mergedRestaurant = {
+  ...restaurant,
+  ...restaurantBranch,
+  ...newRestaurant,
+};
+// console.log(mergedRestaurant);
+
+// Rest pattern - arrays (destructuring)
+const [a, b, , ...others] = [1, 2, 3, 4, 5];
+console.log(others);
+
+//  ["Pizza", "Pasta", "Risotto", "Focaccia", "Canapes", "Garlic", "Bread", "Caprese Salad"]
+// const mergedRestaurantMenu = [
+//   ...restaurant.mainMenu,
+//   ...restaurant.starterMenu,
+// ];
+
+const [food1, food2, ...otherFood] = [
+  ...restaurant.mainMenu,
+  ...restaurant.starterMenu,
+];
+
+console.log(food1, food2, otherFood);
+
+// Rest pattern - functions
+function add(...numbers) {
+  console.log(numbers);
+}
+
+function spreadExa(arg1, arg2, ar3, arg4) {
+  console.log(arg1 + arg2 + ar3 + arg4);
+}
+const args = [];
+spreadExa(...[2, 5, 7, 9]);
+
+add(2, 3);
+add("hello", 23, "@", { id: 0, name: "john" });
+
+
+// Short circuiting – &&, ||
+
+//  OR ||
+
+// console.log(3 || "John");
+// console.log("" || "John");
+// console.log(true || 0);
+// console.log(undefined || null);
+// console.log(undefined || 0 || "" || "hello" || 23 || null);
+
+const restaurant = {
+  name: "Classico Italiano",
+  location: "Lekki Phase 1",
+  categories: ["Italian", "Pizzeria", "Vegetarian", "Organic"],
+  starterMenu: ["Focaccia", "Canapes", "Garlic", "Bread", "Caprese Salad"],
+  mainMenu: ["Pizza", "Pasta", "Risotto"],
+  numGuest: 1,
+  order: function (starterIndex, mainIndex) {
+    return [this.starterMenu[starterIndex], this.mainMenu[mainIndex]];
+    // const orderItem = [
+    //   this.starterMenu[starterIndex],
+    //   this.mainMenu[mainIndex],
+    // ];
+
+    // return orderItem
+  },
+  orderDelivery: function (order) {
+    const { starterIndex, mainIndex, time, address } = order;
+    return console.log(
+      `You have ordered for ${this.starterMenu[starterIndex]} starter, ${this.mainMenu[mainIndex]} main course and will be delivered at ${time} to this address, ${address}`
+    );
+  },
+  orderPasta: function (ing1, ing2, ing3) {
+    console.log(
+      `Here is your delicious pasta with ${ing1}, ${ing2} and ${ing3}`
+    );
+  },
+};
+
+const guest1 = restaurant.numGuest ? restaurant.numGuest : 10;
+const guest2 = restaurant.numGuest || 10;
+// console.log(guest2);
+
+//  AND &&
+// console.log(0 && "John");
+// console.log(1 && "John");
+// console.log("hello" && 23 && null && "john");
+
+if ("hello" && 23 && null && "john") {
+  // console.log("AND returns true");
+} else {
+  // console.log("AND returns false");
+}
+
+// if (restaurant.orderPasta) {
+//   restaurant.orderPasta("cheese", "chicken", "garlic");
+// }
+
+// restaurant.orderPasta && restaurant.orderPasta("cheese", "chicken", "garlic");
+
+// Nullish coalescing operator – ??
+restaurant.numGuest = 0;
+
+const geustCorrect = null ?? undefined ?? false ?? 0 ?? 10;
+console.log(geustCorrect);
+
+
+// Looping Arrays
+// for-of loop
+
+const numbers = [1, 2, 3, 5];
+const arr = ["John", "Rebbecca", "Anita", "Samson", "Aishat"];
+
+for (const someVar of arr) {
+  // console.log(someVar);
+  if (someVar === "Rebbecca") {
+    break;
+  }
+}
+
+// Enhanced object literals
+const input = document.querySelector("input");
+const btn = document.querySelector("button");
+
+const persons = {
+  name: "John",
+};
+
+const age = 23;
+const occupation = "Teacher";
+const friends = ["Rebbecca", "Anita", "Samson", "Aishat"];
+let email = "";
+
+function closeAccount(password) {
+  console.log(password);
+}
+
+const enhancedObj = {
+  persons,
+  age,
+  friends,
+  occupation,
+  email,
+  deleteFriend(index) {
+    this.friends[index] = "";
+  },
+  closeAccount,
+};
+
+btn.addEventListener("click", function () {
+  const value = input.value;
+  console.log(value);
+  enhancedObj.email = value;
+  enhancedObj.deleteFriend(2);
+  enhancedObj.closeAccount("myPassword");
+  console.log(enhancedObj);
+});
+
+const weekdays = ["mon", "tue", "wed", "thu", "fri", "sat", "sun"];
+
+const openingHours = {
+  [weekdays[3]]: {
+    open: 12,
+    close: 22,
+  },
+  [`user-${2 + 4}`]: "twenty three",
+};
+
+// console.log(openingHours);
+
+// Optional chaining
+
+// properties
+//console.log(enhancedObj.person?.name);
+
+for (const day of weekdays) {
+  const open = openingHours[day]?.open ?? "closed";
+  // console.log(`On ${day}, we open at ${open}`);
+}
+
+// console.log(persons["name"]);
+
+// methods
+enhancedObj.openAccount?.();
+
+// arrays
+const users = [
+  { name: "John", email: "john@email.com" },
+  { name: "Peter", email: "john@email.com" },
+];
+
+console.log(users[2]?.name ?? "user array is empty");
+
+
+// Looping objects
+const obj = {
+  name: "John",
+  age: 23,
+  job: "teacher",
+  length: "1.7cm",
+};
+
+const arr = ["one", "two"];
+
+//console.log(arr.length);
+//console.log(objLoop.length);
+
+for (let i = 0; i < arr.length; i++) {
+  const element = arr[i];
+  console.log(element);
+}
+
+// Object.keys
+for (const prop of Object.keys(obj)) {
+  console.log(prop);
+}
+
+// for (let i = 0; i < Object.keys(obj).length; i++) {
+//   const element = Object.keys(obj)[i];
+//   console.log("From for loop: ", element);
+// }
+
+// Object.values
+for (const value of Object.values(obj)) {
+  // console.log(value);
+}
+
+// Object.entries
+for (const entry of Object.entries(obj)) {
+  console.log(`${entry[0]}: ${entry[1]}`);
+}
+
+// for (const [prop, value] of Object.entries(obj)) {
+//   console.log(`${prop}: ${value}`);
+// }
+
+
+// Sets
+const orderSet = new Set(["Pasta", "Pizza", "Pasta", "Garlic"]);
+console.log(orderSet);
+
+// Check size - createdSet.size
+console.log(orderSet.size);
+
+// Add element - createdSet.add(arg)
+orderSet.add("Bread");
+console.log(orderSet);
+
+// Delete element - createdSet.delete(arg)
+orderSet.delete("Pizza");
+console.log(orderSet);
+
+for (const order of orderSet) {
+  console.log(order);
+}
+
+const staff = ["Waiter", "Chef", "Waiter", "Manager", "Chef", "Waiter"];
+console.log(staff);
+
+const staffUnique = new Set(staff);
+console.log(staffUnique);
+
+console.log("aishatambali".length);
+*/
+
+// Maps
+const owner = {
+  name: "John",
+  age: 23,
+  job: "teacher",
+  length: "1.7cm",
+  displayProfile: function () {
+    console.log(`Hi, my name is ${this.name} and I am ${this.age}`);
+  },
+};
+
+const rest = new Map();
+
+// set - to fill the map up
+rest.set("name", "Classico Italiano");
+
+rest
+  .set("categories", ["Italian", "Pizzeria", "Vegetarian"])
+  .set(owner, "Founder")
+  .set("open", 11)
+  .set("close", 23)
+  .set(true, "We are open :D")
+  .set(false, "We are closed :(");
+
+console.log(rest);
+
+// get - to read data from the map
+rest.get(true);
+console.log(rest.get("categories"));
+
+// has (returns boolean) - to check if a map contains a certain key
+console.log(rest.has("branch"));
+
+// delete (returns boolean) - to delete element from the map
+rest.delete(owner);
+
+// clear - to clear/remove all the elements from the map
+rest.clear();
+console.log(rest);
+
+// Maps Iteration
+const question = new Map([
+  ["question", "What is the best programming language in the world?"],
+  [1, "C"],
+  [2, "Java"],
+  [3, "JavaScript"],
+  ["correct", 3],
+  [true, "correct"],
+  [false, "Try again"],
+]);
+
+// Creating maps from an object - Object.entries(object)
+const ownerMap = new Map(Object.entries(owner));
+console.log(ownerMap);
+
+// Iterating
+for (const [key, value] of question) {
+  if (key === "question") {
+    console.log(value);
+    console.log("---------------");
+  }
+
+  if (typeof key === "number") {
+    console.log(`${key}: ${value}`);
+  }
+}
+
+// Convert maps to an array
+const newArrFromMap = [...question];
+console.log(newArrFromMap);
+
+console.log([...question.keys()]);
+console.log([...question.values()]);
+
+//
+
+owner.displayProfile();

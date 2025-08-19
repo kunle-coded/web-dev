@@ -1,0 +1,22 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --white: #ffffff;
+  --light-gray: #f4f4f4;
+  --medium-gray: #cccccc;
+  --dark-gray: #666666;
+  --darkest-gray: #333333;
+  --black: #000000;
+  --accent: #007bff;
+  --green: #33b786;
+  --orange: #f5a623;
+  --red: #e74f5b;
+}
+
+h1 {
+  color: red;
+}

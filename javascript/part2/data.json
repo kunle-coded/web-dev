@@ -1,0 +1,5 @@
+{
+  "posts": [
+    { "id": 0, "postTitle": "My first post", "postBody": "Lorem ipsum dolor" }
+  ]
+}
