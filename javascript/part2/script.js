@@ -1221,7 +1221,7 @@ const staffUnique = new Set(staff);
 console.log(staffUnique);
 
 console.log("aishatambali".length);
-*/
+
 
 // Maps
 const owner = {
@@ -1300,3 +1300,337 @@ console.log([...question.values()]);
 //
 
 owner.displayProfile();
+
+
+// Data from APIs
+
+// Working with strings
+
+//indexOf(), lastIndexOf()
+const str = "aishat";
+// console.log(str.indexOf("A"));
+// console.log(str.lastIndexOf("a"));
+
+// slice()
+const musty = "Mustapha, Musty is my friend. My Padi Padi.";
+// console.log(musty.slice(musty.indexOf(" ") + 1, musty.lastIndexOf(".") + 1));
+
+const airline = "airline";
+
+// console.log(airline.slice(-3));
+// console.log(airline.slice(1, -2));
+
+// toLowerCase()
+const str1 = "JOHN DOE";
+// console.log(str1.toLowerCase());
+
+// toUpperCase()
+const str2 = "john Doe";
+// console.log(str2);
+// console.log(str2.toUpperCase());
+
+// trim()
+const str3 = " Hi, my   name is John Doe.   ";
+console.log(str3);
+console.log(str3.trim());
+
+// replace()
+const priceEU = "288,97€";
+const priceUS = priceEU.replace("€", "$").replace(",", ".");
+console.log(priceEU);
+console.log(priceUS);
+
+const announcement =
+  "All passengers come to boarding door 23. Boarding door 23!";
+console.log(announcement);
+console.log(announcement.replace("door", "gate"));
+
+// regular expression
+console.log(announcement.replace(/door/g, "gate"));
+
+// replaceAll()
+console.log(announcement.replaceAll("door", "gate"));
+
+// includes()
+const str4 = "airline";
+console.log(str4.includes("line"));
+
+// startsWith()
+const str5 = "Airbus";
+console.log(str5.startsWith("Airb"));
+
+// endsWith()
+const name1 = "Aishat";
+console.log(name1.endsWith("at"));
+
+// split()
+const str6 = "a+very+nice+string";
+console.log(str6.split("+"));
+
+const str7 = "Mr John Doe";
+console.log(str7.split(" "));
+
+// join()
+const str8 = ["Mr", "John", "Doe"];
+console.log(str8.join(" "));
+console.log(str6.split("+").join(" "));
+
+// padStart()
+const str9 = "John";
+console.log(str9.padStart(10, "+"));
+
+// padEnd()
+console.log(str9.padEnd(10, "+"));
+console.log(str9.padStart(17, "+").padEnd(30, "+"));
+
+const maskCreditCard = function (number) {
+  const str = number + ""; // String(number)
+  const last = str.slice(-4);
+  return last.padStart(str.length, "*");
+};
+
+const mask = maskCreditCard(31421391234);
+console.log(mask);
+
+// repeat()
+const str10 = "Bad Weather";
+console.log(str10.repeat(4));
+
+// A Closer Look at Functions
+// Default Parameters
+const bookings = [];
+
+const createBooking = function (flightNumber, numPassenger, price) {
+  numPassenger = numPassenger || 1;
+  price = price || 199;
+
+  const booking = {
+    flightNumber,
+    numPassenger,
+    price,
+  };
+
+  bookings.push(booking);
+};
+
+// createBooking("LH123");
+// createBooking("EW263", 2);
+// createBooking("BA961", 2, 230);
+
+// for (let i = 0; i < bookings.length; i++) {
+//   console.log(
+//     `Fligh Info\nFlight no.: ${bookings[i].flightNumber}\nNumber of passengers: ${bookings[i].numPassenger}\nPrice: ${bookings[i].price}`
+//   );
+//   console.log("______________________");
+// }
+
+const createBookingNew = function (flightNum, numPassenger = 1, price = 800) {
+  const booking = {
+    flightNum,
+    numPassenger,
+    price,
+  };
+
+  bookings.push(booking);
+};
+
+createBookingNew("LH123");
+createBookingNew("EW263", 4);
+createBookingNew("BA961", undefined, 3200);
+console.log(bookings);
+
+const flight = "LH234";
+const john = {
+  name: "John Doe",
+  passport: 237489342,
+};
+
+const checkIn = function (flightNum, passenger) {
+  flightNum = "LH999";
+  passenger.name = "Mr. " + passenger.name;
+};
+//flightNum = flight
+checkIn(flight, john);
+console.log(flight);
+console.log(john);
+
+
+// First-Class And Higher-Order functions
+// First-Class functions
+
+// Examples
+// First-class functions
+const add = (a, b) => a + b;
+console.log(add(15, 77));
+
+const counter = {
+  value: 23,
+  inc: function () {
+    this.value++;
+  },
+  dec: function () {
+    this.value--;
+  },
+};
+counter.inc();
+console.log(counter.value);
+
+// const greet = () => console.log("Hello, John");
+// document.querySelector("button").addEventListener("click", greet);
+
+function count() {
+  let counter = 0;
+  return function () {
+    counter++;
+  };
+}
+const countVar = count();
+
+// Functions Accepting Callback Functions
+const oneWord = function (str) {
+  return str.replace(/ /g, "").toLowerCase();
+};
+
+const upperFirstWord = function (str) {
+  const [first, ...others] = str.split(" ");
+  return [first.toUpperCase(), ...others].join(" ");
+};
+
+const transformer = function (str, fn) {
+  // transformer = Higher Order Function
+  console.log(`Original string: ${str}`);
+  console.log(`Transformed string: ${fn(str)}`);
+};
+
+transformer("JavaScript is the best", upperFirstWord); //upperFirstWord = callback function
+transformer("JavaScript is the best", oneWord);
+
+const high5 = function () {
+  console.log("✋");
+};
+document.querySelector("button").addEventListener("click", high5);
+// ["Jonas", "Martha", "Adam"].forEach(high5);
+
+// Functions Returning Functions
+const greet = function (greeting) {
+  return function (name) {
+    console.log(`${greeting}, ${name}`);
+  };
+};
+
+const greeterHey = greet("Hey");
+greeterHey("Martha");
+greet("Hello")("John");
+
+const greetArr = (greeting) => (name) => console.log(`${greeting}, ${name}`);
+greetArr("Hi")("Peter");
+*/
+
+// The Call And Apply Methods
+const euroWings = {
+  airline: "Eurowings",
+  iataCode: "EW",
+  bookings: [],
+  book(flightNumber, name, bookingDate) {
+    console.log(
+      `${name} booked a seat on ${this.airline} flight ${this.iataCode}${flightNumber} on ${bookingDate}.`
+    );
+  },
+};
+
+const luftHansa = {
+  airline: "LuftHansa",
+  iataCode: "LH",
+  bookings: [],
+};
+
+const swiss = {
+  airline: "Swiss Airlines",
+  iataCode: "LX",
+  bookings: [],
+};
+
+const today = new Date();
+
+// euroWings.book(213, "Sarah Williams", today.toDateString());
+
+const book = euroWings.book;
+
+// call()
+book.call(luftHansa, 245, "George Bradley", today.toDateString());
+
+// apply()
+const flightData = [583, "Mary Cooper", today.toDateString()];
+// book.apply(luftHansa, flightData);
+
+// Using call() as alternative to apply() by using spread operator
+// const flightData = [583, "Mary Cooper", today.toDateString()];
+// book.call(luftHansa, ...flightData);
+
+// The bind method
+const bookLufthansa = book.bind(luftHansa);
+bookLufthansa(245, "George Bradley", today.toDateString());
+
+const bookEW = book.bind(
+  euroWings,
+  245,
+  "George Bradley",
+  today.toDateString()
+);
+bookEW();
+
+// Immediately Invoked Function Expressions (IIFE)
+(function () {
+  console.log("This is an Immediately Invoked Function Expressions (IIFE) ");
+})();
+
+// Closures – examples
+
+const secureBooking = function () {
+  let passengerCount = 0;
+  return function () {
+    passengerCount++;
+    console.log(`${passengerCount} passengers`);
+  };
+};
+
+const booker = secureBooking();
+booker();
+console.dir(secureBooking);
+
+// Simple array methods
+// slice()
+const arrs = ["a", "b", "c", "d", "e"];
+// const arrs2 = arrs.slice();
+// arrs2[3] = "John";
+// console.log(arrs);
+
+// splice()
+// arrs.splice(2);
+//arrs.splice(2, 2); // DeleteCount
+// console.log(arrs)
+
+// reverse()
+// arrs.reverse();
+// console.log(arrs);
+
+// Challenge: Given an array of any length, find the middle element
+// step 1: Get the length of the array
+// step 2: Find the middle of the length - length/2
+
+const arrLength = arrs.length;
+const middle = arrLength / 2;
+
+// console.log(arrs[Math.round(middle) - 1]);
+
+// concat()
+const arrsNew = ["f", "g", "h"];
+const letters = arrs.concat(arrsNew);
+console.log(letters);
+
+const lettersSpread = [...arrs, ...arrsNew]; //spread operator = concat()
+console.log(lettersSpread);
+
+// join()
+const jointArr = arrsNew.join("-");
+console.log(jointArr);
