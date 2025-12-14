@@ -1,9 +1,9 @@
 package my_java_proj;
 
- class User {
-    private String name;
+public class User {
+    String name;
     String username;
-    private String password;
+    String password;
     int dateOfBirth;
     boolean isMarried;
     int id;
@@ -24,16 +24,4 @@ package my_java_proj;
     public String getName(){
         return name;
     }
-}
-
-public class Test{
-    public static void main(String[] args){
-        User john = new User(0);
-        User mark = new User(1);
-        john.register("John", "johndoe", "JD123", 2005);
-        mark.register("Mark", "marktwain", "MT123", 2006);
-        System.out.println(john.getName());
-        System.out.println(mark.getName());
-    }
-    
 }

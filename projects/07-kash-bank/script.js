@@ -7,11 +7,19 @@
 
 const account1 = {
   owner: "John Smith",
-  movements: [200, 455.23, -306.5, 25000, -642.21, -133.9, 79.97],
+  movements: [200, 455.23, -306.5, 25000, -642.21, -133.9, 79.97, 50],
   interestRate: 1.2, // %
   email: "johnsmith@email.com",
   password: "johnsmith",
-  movementsDates: [],
+  movementsDates: [
+    "2019-11-18T21:31:17.178Z",
+    "2019-12-23T07:42:02.383Z",
+    "2020-01-28T09:15:04.904Z",
+    "2020-04-01T10:17:24.185Z",
+    "2020-05-08T14:11:59.604Z",
+    "2020-07-26T17:01:17.194Z",
+    "2020-07-28T23:36:17.929Z",
+  ],
   currency: "EUR",
   locale: "de-DE",
 };
@@ -22,9 +30,18 @@ const account2 = {
   interestRate: 1.5, // %
   email: "jessicadavis@email.com",
   password: "jessicadavis",
-  movementsDates: [],
-  currency: "USD",
-  locale: "en-US",
+  movementsDates: [
+    "2019-11-01T13:15:33.035Z",
+    "2019-11-30T09:48:16.867Z",
+    "2019-12-25T06:04:23.907Z",
+    "2020-01-25T14:18:46.235Z",
+    "2020-02-05T16:33:06.386Z",
+    "2020-04-10T14:43:26.374Z",
+    "2020-06-25T18:49:59.371Z",
+    "2020-07-26T12:01:20.894Z",
+  ],
+  currency: "NGN",
+  locale: "ng-NG",
 };
 
 const account3 = {
@@ -33,7 +50,16 @@ const account3 = {
   interestRate: 0.7, // %
   email: "stevenwilliams@email.com",
   password: "stevenwilliams",
-  movementsDates: [],
+  movementsDates: [
+    "2019-04-03T01:06:06.000Z",
+    "2019-05-11T11:22:22.000Z",
+    "2019-06-05T06:16:16.000Z",
+    "2019-06-05T07:16:16.000Z",
+    "2020-08-01T10:51:36.790Z",
+    "2020-11-01T05:12:12.000Z",
+    "2020-12-07T12:18:18.000Z",
+    "2020-12-05T11:16:16.000Z",
+  ],
   currency: "USD",
   locale: "en-US",
 };
@@ -43,7 +69,13 @@ const account4 = {
   interestRate: 1, // %
   email: "sarahjames@email.com",
   password: "sarahjames",
-  movementsDates: [],
+  movementsDates: [
+    "2019-03-09T07:18:18.000Z",
+    "2019-03-03T02:12:12.000Z",
+    "2019-04-04T04:13:13.000Z",
+    "2020-05-11T13:22:22.000Z",
+    "2020-07-01T04:12:12.000Z",
+  ],
   currency: "GBP",
   locale: "en-GB",
 };
@@ -83,9 +115,38 @@ const inputCloseEmail = document.querySelector(".form__input--email");
 const inputClosePin = document.querySelector(".form__input--pin");
 
 // Variables
-let loggedInUser = account1;
+let loggedInUser; // NOTE user should be null
+
+const now = new Date();
+const day = `${now.getDate()}`.padStart(2, 0);
+const month = `${now.getMonth() + 1}`.padStart(2, 0);
+const year = now.getFullYear();
+const hour = `${now.getHours()}`.padStart(2, 0);
+const minutes = `${now.getMinutes()}`.padStart(2, 0);
+
+labelDate.textContent = `As of ${day}/${month}/${year}, ${hour}:${minutes}`;
 
 // Functions
+const formatMovementDate = function (date, locale) {
+  const calcDaysPassed = (date1, date2) => {
+    return Math.abs(date2 - date1) / (1000 * 60 * 60 * 24);
+  };
+
+  const daysPassed = calcDaysPassed(new Date(), date);
+
+  if (Math.trunc(daysPassed) === 0) return "Today";
+  if (Math.trunc(daysPassed) === 1) return "Yesterday";
+  if (Math.trunc(daysPassed) <= 7) return `${Math.trunc(daysPassed)} days ago`;
+
+  return new Intl.DateTimeFormat(locale, {
+    month: "2-digit",
+    day: "2-digit",
+    year: "numeric",
+  }).format(date);
+};
+
+let timer;
+
 // User login
 const loginUser = function () {
   const email = inputEmail.value;
@@ -107,6 +168,8 @@ const loginUser = function () {
       pageLogin.classList.remove("active");
       pageHome.classList.add("active");
       updateUI();
+      if (timer) clearInterval(timer);
+      timer = startLogoutTimer();
       inputEmail.value = inputPassword.value = "";
     } else {
       alert("Invalid email or password");
@@ -120,19 +183,31 @@ const logoutUser = function () {
   pageLogin.classList.add("active");
 };
 
-const displayMovements = function (movements, sort = false) {
+const formatCur = function (value, locale, currency) {
+  return new Intl.NumberFormat(locale, {
+    style: "currency",
+    currency: currency,
+  }).format(value);
+};
+
+const displayMovements = function (acc, sort = false) {
   containerMovements.innerHTML = "";
 
-  const movs = sort ? movements.slice().sort((a, b) => a - b) : movements;
+  const movs = sort
+    ? acc.movements.slice().sort((a, b) => a - b)
+    : acc.movements;
 
   movs.forEach((mov, i) => {
+    const date = new Date(acc.movementsDates[i]);
+    const displayDate = formatMovementDate(date, acc.locale);
+
+    const formattedMov = formatCur(mov, acc.locale, acc.currency);
+
     const html = `
       <li class="transaction__item">
         <p class="name">${loggedInUser.owner}</p>
-        <p class="date">06.Mar.2023 - 09:39</p>
-        <p class="amount ${mov > 0 ? "inward" : "outward"}">${
-      mov > 0 ? "+" : ""
-    }${mov}</p>
+        <p class="date">${displayDate}</p>
+        <p class="amount ${mov > 0 ? "inward" : "outward"}">${formattedMov}</p>
       </li>
       `;
 
@@ -148,7 +223,7 @@ const displayGreeting = function (owner) {
 // Calculate and display account balance
 const calcDisplayBalance = function (acc) {
   acc.balance = acc.movements.reduce((accu, curr) => accu + curr, 0);
-  labelBalance.textContent = `₦${acc.balance}`;
+  labelBalance.textContent = formatCur(acc.balance, acc.locale, acc.currency);
 };
 
 // Calculate and display movement summary
@@ -156,19 +231,19 @@ const calcDisplaySummary = function (acc) {
   const incomes = acc.movements
     .filter((mov) => mov > 0)
     .reduce((acc, mov) => acc + mov, 0);
-  labelSumIn.textContent = `₦${incomes}`;
+  labelSumIn.textContent = formatCur(incomes, acc.locale, acc.currency);
 
   const out = acc.movements
     .filter((mov) => mov < 0)
     .reduce((acc, mov) => acc + mov, 0);
-  labelSumOut.textContent = `₦${Math.abs(out).toFixed(2)}`;
+  labelSumOut.textContent = formatCur(Math.abs(out), acc.locale, acc.currency);
 
   const interest = acc.movements
     .filter((mov) => mov > 0)
     .map((deposit) => (deposit * acc.interestRate) / 100)
     .filter((int) => int >= 1)
     .reduce((acc, int) => acc + int, 0);
-  labelSumInterest.textContent = `₦${interest.toFixed(2)}`;
+  labelSumInterest.textContent = formatCur(interest, acc.locale, acc.currency);
 };
 
 // sarahjames@email.com
@@ -176,18 +251,44 @@ const calcDisplaySummary = function (acc) {
 // johnsmith@email.com
 
 const updateUI = () => {
-  displayMovements(loggedInUser.movements);
+  displayMovements(loggedInUser);
   displayGreeting(loggedInUser.owner);
   calcDisplayBalance(loggedInUser);
   calcDisplaySummary(loggedInUser);
 
   // NOTE remove later
-  pageLogin.classList.remove("active");
-  pageHome.classList.add("active");
+  // pageLogin.classList.remove("active");
+  // pageHome.classList.add("active");
 };
 
-calcDisplaySummary(account1);
-updateUI();
+// Timer
+
+const startLogoutTimer = function () {
+  const tick = function () {
+    const min = String(Math.trunc(time / 60)).padStart(2, 0);
+    const sec = String(time % 60).padStart(2, 0);
+
+    // In each call, print the remaining time to UI
+    labelTimer.textContent = `${min}:${sec}`;
+
+    // When 0 seconds, stop timer and log out user
+    if (time === 0) {
+      clearInterval(timer);
+      logoutUser();
+    }
+
+    // Decrease 1s
+    time--;
+  };
+
+  // Set time to 10 minutes
+  let time = 600;
+
+  // Call the timer every second
+  tick();
+  const timer = setInterval(tick, 1000);
+  return timer;
+};
 
 // Event handlers
 buttonLogin?.addEventListener("click", (e) => {
@@ -488,4 +589,108 @@ labelBalance.addEventListener("click", function () {
   );
   console.log(movementsUI);
 });
+
+// Summary: Which Array Method to Use?
+
+// 1.
+const bankDepositSum = accounts
+  .flatMap((acc) => acc.movements)
+  .filter((mov) => mov > 0)
+  .reduce((sum, curr) => sum + curr, 0);
+console.log(bankDepositSum);
+
+// 2.
+const numDeposit1000 = accounts
+  .flatMap((acc) => acc.movements)
+  .filter((mov) => mov >= 1000).length;
+console.log(numDeposit1000);
+
+// OR:
+const numDeposit1000Two = accounts
+  .flatMap((acc) => acc.movements)
+  .reduce((count, curr) => (curr >= 1000 ? count + 1 : count), 0);
+console.log(numDeposit1000Two);
+
+// 3.
+const { deposits, withdrawals } = accounts
+  .flatMap((acc) => acc.movements)
+  .reduce(
+    (sums, curr) => {
+      // curr > 0 ? (sums.deposits += curr) : (sums.withdrawals += curr);
+      sums[curr > 0 ? "deposits" : "withdrawals"] += curr;
+      return sums;
+    },
+    { deposits: 0, withdrawals: 0 }
+  );
+
+console.log("deposits", deposits);
+console.log("withdrawals", withdrawals);
+
+// 4.
+const convertTitleCase = function (title = "") {
+  const capitalize = (str) => str[0].toUpperCase() + str.slice(1);
+
+  const exeptions = [
+    "a",
+    "an",
+    "and",
+    "the",
+    "but",
+    "or",
+    "on",
+    "in",
+    "to",
+    "with",
+  ];
+
+  const titleCase = title
+    .toLowerCase()
+    .split(" ")
+    .map((word) => (exeptions.includes(word) ? word : capitalize(word)))
+    .join(" ");
+
+  return capitalize(titleCase);
+};
+
+console.log(convertTitleCase("this is a nice title"));
+console.log(convertTitleCase("this is a long title, but not too long"));
+console.log(convertTitleCase("and here is another title with an EXAMPLE"));
+
+// const exeptions = [
+//   "a",
+//   "an",
+//   "and",
+//   "the",
+//   "but",
+//   "or",
+//   "on",
+//   "in",
+//   "to",
+//   "with",
+// ];
+// const capitalize = (str) => str[0].toUpperCase() + str.slice(1);
+
+// const title = "this is a Nice tiTle";
+// const lowerTitle = title.toLowerCase();
+// console.log(lowerTitle);
+// const splitedTitle = lowerTitle.split(" ");
+// console.log("splited title", splitedTitle);
+// const capitalizedWords = splitedTitle.map((word) =>
+//   exeptions.includes(word) ? word : capitalize(word)
+// );
+// console.log("mapped title", capitalizedWords);
+// const joinedTitle = capitalizedWords.join(" ");
+// console.log("joined title: ", joinedTitle);
+// const capitalizeTitle = capitalize(joinedTitle);
+// console.log("Final capitalized title: ", capitalizeTitle);
+
+// const firstLetter = title[0];
+// console.log(firstLetter);
+// const firstLetterUpp = firstLetter.toUpperCase();
+// console.log(firstLetterUpp);
+// const titleRest = title.slice(1);
+// console.log(titleRest);
+// const capitalizedResult = firstLetterUpp + titleRest;
+// console.log(capitalizedResult);
+
 */
